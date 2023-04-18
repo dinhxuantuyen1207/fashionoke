@@ -14,13 +14,14 @@ class HoaDonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dat_hang(Request $request){
-        try{
+    public function dat_hang(Request $request)
+    {
+        try {
             $user = Auth::guard('user')->user();
             $admin = Auth::guard('admin')->user();
-            if($user){
+            if ($user) {
                 $id = $user->id;
-            } else if($admin) {
+            } else if ($admin) {
                 $id = $admin->id;
             }
             $hoaDon = HoaDon::create([
@@ -35,26 +36,27 @@ class HoaDonController extends Controller
                 'so_luong'              => $request->so_luong,
             ]);
             return response()->json(['status' => true]);
-        }catch(QueryExecuted $e){
+        } catch (QueryExecuted $e) {
             return response()->json(['error' => $e]);
         }
     }
-    public function chuyen_trang_thai(Request $request){
+    public function chuyen_trang_thai(Request $request)
+    {
         $hoa_don = HoaDon::find($request->id);
-        if(isset($hoa_don)){
-            if($hoa_don->tinh_trang_don_hang == 'Chờ Xác Nhận'){
+        if (isset($hoa_don)) {
+            if ($hoa_don->tinh_trang_don_hang == 'Chờ Xác Nhận') {
                 $hoa_don->tinh_trang_don_hang = 'Xác Nhận Đơn Hàng';
                 $hoa_don->save();
                 return response()->json(['message' => 1]);
-            } else if($hoa_don->tinh_trang_don_hang == 'Xác Nhận Đơn Hàng') {
+            } else if ($hoa_don->tinh_trang_don_hang == 'Xác Nhận Đơn Hàng') {
                 $hoa_don->tinh_trang_don_hang = 'Đang Đóng Gói';
                 $hoa_don->save();
                 return response()->json(['message' => 2]);
-            } else if($hoa_don->tinh_trang_don_hang == 'Đang Đóng Gói') {
+            } else if ($hoa_don->tinh_trang_don_hang == 'Đang Đóng Gói') {
                 $hoa_don->tinh_trang_don_hang = 'Đang Vận Chuyển';
                 $hoa_don->save();
                 return response()->json(['message' => 3]);
-            } else if($hoa_don->tinh_trang_don_hang == 'Đang Vận Chuyển') {
+            } else if ($hoa_don->tinh_trang_don_hang == 'Đang Vận Chuyển') {
                 $hoa_don->tinh_trang_don_hang = 'Đã Giao Hàng';
                 $hoa_don->tinh_trang_thanh_toan = 'Đã Thanh Toán';
                 $hoa_don->save();
@@ -66,31 +68,43 @@ class HoaDonController extends Controller
         return response()->json(['message' => 5]);
     }
 
-    public function thong_ke(){
+    public function thong_ke()
+    {
         $hoa_don = HoaDon::where('tinh_trang_thanh_toan', 'Đã Thanh Toán')->groupBy('id_san_pham')->selectRaw('sum(tong_tien) as thanh_tien, id_san_pham')
-        ->get();
+            ->get();
 
-        return view('admin.thong_ke.index',compact('hoa_don','hoa_don'));
+        return view('admin.thong_ke.index', compact('hoa_don', 'hoa_don'));
     }
 
-    public function thong_ke2(){
+    public function thong_ke2()
+    {
         $hoa_don = HoaDon::where('tinh_trang_thanh_toan', 'Đã Thanh Toán')
-        ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") AS thang_nam, SUM(tong_tien) AS thanh_tien ')
-        ->groupBy('thang_nam')
-        ->get();
+            ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") AS thang_nam, SUM(tong_tien) AS thanh_tien ')
+            ->groupBy('thang_nam')
+            ->get();
 
-        return view('admin.thong_ke.index2',compact('hoa_don','hoa_don'));
+        return view('admin.thong_ke.index2', compact('hoa_don', 'hoa_don'));
     }
-    public function thong_ke_thang($id){
+    public function thong_ke_thang($id)
+    {
         $hoa_don = HoaDon::where('tinh_trang_thanh_toan', 'Đã Thanh Toán')->groupBy('id_san_pham')->selectRaw('sum(tong_tien) as thanh_tien, id_san_pham')
-        ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$id])->get();
+            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$id])->get();
 
-        return view('admin.thong_ke.index3',compact(['hoa_don'=>'hoa_don','id'=>'id']));
+        return view('admin.thong_ke.index3', compact(['hoa_don' => 'hoa_don', 'id' => 'id']));
     }
 
     public function index()
     {
         return view('admin.hoa_don.index');
+    }
+
+    public function don_hang()
+    {
+        $id_user = Auth::guard('user')->user()->id;
+        if (isset($id_user)) {
+            $ds_don_hang = HoaDon::where('id_nguoi_nhan', $id_user)->get();
+            return view('home.don_hang', compact('ds_don_hang', 'ds_don_hang'));
+        } else return response()->json(['message' => 'error']);
     }
 
     /**

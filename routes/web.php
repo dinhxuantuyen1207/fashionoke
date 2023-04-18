@@ -37,6 +37,7 @@ Route::get('/gio_hang',[AddToCardController::class,'gio_hang']);
 Route::get('/{slug_danh_muc_cha}/{slug_danh_muc}',[SanPhamController::class,'san_pham_danh_muc']);
 Route::post('/select_checkbox',[SanPhamController::class,'select_checkbox']);
 Route::post('/dat-hang',[HoaDonController::class,'dat_hang']);
+Route::get('/quan-ly-don-hang',[HoaDonController::class,'don_hang']);
 Route::group(['prefix'=>'/admin','middleware'=>'checkAdmin'],function () {
     Route::prefix('/danh-muc')->group(function () {
         Route::get('/ts',[AdminController::class,'ts']);

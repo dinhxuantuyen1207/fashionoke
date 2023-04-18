@@ -2,7 +2,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--favicon-->
-	<link rel="icon" href="/app_assets/images/favicon-32x32.png" type="image/png"/>
+	<link rel="icon" href="/img/Funn.gif" type="image/png"/>
 	<!--plugins-->
 	<link href="/app_assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
 	<link href="/app_assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
@@ -30,7 +30,7 @@
 	<link rel="stylesheet" href="/app_assets/css/dark-theme.css"/>
 	<link rel="stylesheet" href="/app_assets/css/semi-dark.css"/>
 	<link rel="stylesheet" href="/app_assets/css/header-colors.css"/>
-    <title>ssss</title>
+    <title>Fundo Fashion</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://www.paypal.com/sdk/js?client-id=AcO_eHmPFOsuvsyYqxAUVL0r61pmJ4ckMvi3ioi_GEwp4nj5OQucQr3Yl6zKbu4EvZFqXDBuiBsci9aF&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>

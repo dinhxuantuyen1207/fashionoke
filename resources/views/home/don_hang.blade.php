@@ -59,39 +59,23 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">#</th>
-                                            <th class="text-center">ID Khách Hàng</th>
-                                            <th class="text-center">Tên Khách Hàng</th>
-                                            <th class="text-center">Số Điện Thoại</th>
-                                            <th class="text-center">Địa Chỉ</th>
                                             <th class="text-center">Tên Sản Phẩm</th>
                                             <th class="text-center">Số Lượng</th>
-                                            <th class="text-center">Tình Trạng Đơn Hàng</th>
-                                            <th class="text-center">Trình Trạng Thanh Toán</th>
                                             <th class="text-center">Tổng Tiền</th>
-                                            <th class="text-center">Ngày Lập HĐ</th>
+                                            <th class="text-center">Tình Trạng Đơn Hàng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (\App\Models\HoaDon::get() as $key => $value)
+                                        @foreach ($ds_don_hang as $key => $value)
 									<tr>
 										<td>{{$key+1}}</td>
-										<td>{{$value->id_nguoi_nhan}}</td>
-										<td>{{$value->nguoi_nhan}}</td>
-                                        <td>{{$value->so_dien_thoai}}</td>
-                                        <td>{{$value->dia_chi}}</td>
                                         @php
                                             $san_pham = \App\Models\SanPham::where('id',$value->id_san_pham)->first();
                                         @endphp
-                                        <td>{{$san_pham->ten_san_pham}}</td>
+										<td>{{$san_pham->ten_san_pham}}</td>
                                         <td>{{$value->so_luong}}</td>
-                                        <td class="align-middle text-center">
-                                            <button id="tinh-trang-giao-hang-{{$value->id}}" class="tinh-trang-giao-hang btn badge rounded-pill {{$value->tinh_trang_don_hang == 'Chờ Xác Nhận' ? 'text-danger' : ($value->tinh_trang_don_hang == 'Xác Nhận Đơn Hàng' ? 'text-warning' : ($value->tinh_trang_don_hang == 'Xác Nhận Đơn Hàng' ? 'text-warning' : ($value->tinh_trang_don_hang == 'Đang Đóng Gói' ? 'text-secondary' : ($value->tinh_trang_don_hang == 'Đang Vận Chuyển' ? 'text-info' : 'text-success' ) ) ))}} bg-light-success p-2 text-uppercase px-3" data-id={{$value->id}} data-item={{$value->tinh_trang_don_hang}}>{{$value->tinh_trang_don_hang}}</button>
-                                        </td>
-                                        <td><button id="tinh-trang-thanh-toan-{{$value->id}}" class="doi-trang-thai btn badge rounded-pill {{$value->tinh_trang_thanh_toan == 'Chưa Thanh Toán' ? 'text-danger' : 'text-success'}} bg-light-success p-2 text-uppercase px-3">{{$value->tinh_trang_thanh_toan}}</button></td>
-
-                                        <td>
-                                            {{ number_format($value->tong_tien, 0, '', '.') }} đ</td>
-                                        <td>{{$value->created_at}}</td>
+										<td>{{ number_format($value->tong_tien, 0, '', '.') }} đ</td>
+                                        <td>{{$value->tinh_trang_don_hang}}</td>
 									</tr>
                                     @endforeach
 

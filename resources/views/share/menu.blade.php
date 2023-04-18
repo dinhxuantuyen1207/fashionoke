@@ -80,6 +80,22 @@
                 $user = Auth::guard('user')->user();
             @endphp
             @endif
+            @if($ucheck)
+            <li class="menu-label">Quản Lý Đơn Hàng</li>
+            <li>
+                <a class="has-arrow" href="javascript:;">
+                    <div class="parent-icon"><i class="bx bx-line-chart"></i>
+                    </div>
+                    <div class="menu-title">Quản Lý Đơn Hàng</div>
+                </a>
+                <ul>
+                    <li> <a href="/quan-ly-don-hang"><i class="bx bx-right-arrow-alt"></i>Danh Sách Đơn Hàng</a>
+                    </li>
+                    <li> <a href="/gio-hang"><i class="bx bx-right-arrow-alt"></i>Giỏ Hàng</a>
+                    </li>
+                </ul>
+            </li>
+            @endif
             @if ($check)
             @php
                 $data = Auth::guard('admin')->user();
