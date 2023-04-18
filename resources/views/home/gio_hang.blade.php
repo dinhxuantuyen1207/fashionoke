@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--favicon-->
-    <link rel="icon" href="/app_assets/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="/img/Funn.gif" type="image/png"/>
     <!--plugins-->
     <link href="/app_assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="/app_assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
@@ -61,11 +61,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($gio_hang as $key => $value)
-                                        @php
-                                            $san_pham = \App\Models\SanPham::where('id', $value->id_san_pham)->first();
-                                        @endphp
+                                            @php
+                                                $san_pham = \App\Models\SanPham::where('id', $value->id_san_pham)->first();
+                                            @endphp
                                             <tr>
-                                               <td>{{ $key + 1 }}</td>
+                                                <td>{{ $key + 1 }}</td>
                                                 <td>{{ $san_pham->ten_san_pham }}</td>
                                                 <td>
                                                     @php
@@ -93,7 +93,8 @@
                                                 </td>
                                                 <td class="text-center">
 
-                                                    <div class="d-flex order-actions justify-content-evenly">
+                                                    <div class="delete-gio-hang d-flex order-actions justify-content-evenly"
+                                                        data-id={{ $value->id }}>
                                                         <a href="javascript:;" class="delete-1"><i
                                                                 class="bx bxs-trash"></i></a>
                                                     </div>
@@ -111,8 +112,7 @@
                 </div>
             </div>
             <div class="overlay toggle-icon"></div>
-            <a href="javaScript:;" class="back-to-top"><i
-                    class='bx bxs-up-arrow-alt'></i></a>
+            <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
 
             <footer class="page-footer">
                 <p class="mb-0">Fundo Fashion 2023</p>
@@ -144,6 +144,26 @@
 
                 table.buttons().container()
                     .appendTo('#example2_wrapper .col-md-6:eq(0)');
+
+                $('#example2 tbody').on('click', 'div.delete-gio-hang', function() {
+                    let id = $(this).data('id');
+                    let param = {
+                        'id': id
+                    }
+                    table.row($(this).parents('tr')).remove().draw();
+                    $.ajax({
+                        url: '/delete-gio-hang',
+                        data: param,
+                        type: 'post',
+                        success: function(res) {
+                            if (res.status) {
+                                toastr.success('Xóa Thành Công');
+                            } else {
+                                toastr.error('Xóa Thất Bại');
+                            }
+                        }
+                    })
+                });
             });
         </script>
         <!--app JS-->

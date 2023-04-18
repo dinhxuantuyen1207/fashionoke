@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--favicon-->
-    <link rel="icon" href="/app_assets/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="/img/Funn.gif" type="image/png"/>
     <!--plugins-->
     <link href="/app_assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="/app_assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />

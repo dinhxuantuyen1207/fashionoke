@@ -199,7 +199,7 @@
                         </li>
                         @elseif($ucheck)
                         <li class="nav-item dropdown dropdown-large">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="/gio_hang" role="button" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="/gio-hang" role="button" aria-expanded="false">
                                  {{-- <span class="alert-count">7</span> --}}
                                 <i class='bx bx-cart'></i>
                             </a>

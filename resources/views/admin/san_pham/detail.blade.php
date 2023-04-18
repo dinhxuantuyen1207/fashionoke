@@ -6,7 +6,7 @@
                 @php
                     $main = \App\Models\HinhAnhSanPham::where('id_san_pham', $product->id)->first();
                 @endphp
-                <img src="/upload/{{ $main->hinh_anh_phu }}" class="img-fluid" id="main-image" alt="...">
+                <img src="/upload/{{ $main->hinh_anh_phu }}" class="img-fluid" id="main-image" alt="..." style="width: 100%;">
 
 
                 <div class="text-start d-flex">

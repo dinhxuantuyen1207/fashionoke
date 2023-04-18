@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--favicon-->
-    <link rel="icon" href="/app_assets/images/favicon-32x32.png" type="image/png" />
+    <link rel="icon" href="/img/Funn.gif" type="image/png"/>
     <!--plugins-->
     <link href="/app_assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
     <link href="/app_assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
@@ -72,7 +72,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (\App\Models\HoaDon::get() as $key => $value)
+                                        @foreach (\App\Models\HoaDon::orderByRaw("
+                                        CASE
+                                            WHEN tinh_trang_don_hang = 'Chờ Xác Nhận' THEN 1
+                                            WHEN tinh_trang_don_hang = 'Xác Nhận Đơn Hàng' THEN 2
+                                            WHEN tinh_trang_don_hang = 'Đang Đóng Gói' THEN 3
+                                            WHEN tinh_trang_don_hang = 'Đang Vận Chuyển' THEN 4
+                                            WHEN tinh_trang_don_hang = 'Đã Giao Hàng' THEN 5
+                                            ELSE 6
+                                        END
+                                    ")->get(); as $key => $value)
 									<tr>
 										<td>{{$key+1}}</td>
 										<td>{{$value->id_nguoi_nhan}}</td>

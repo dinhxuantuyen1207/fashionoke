@@ -42,6 +42,17 @@ class AddToCardController extends Controller
         }
         return view('home.gio_hang', compact('gio_hang','gio_hang'));
     }
+
+    public function delete_gio_hang(Request $request)
+    {
+        $id_user = Auth::guard('user')->user()->id;
+        if (isset($id_user)) {
+            $gio_hang = AddToCard::where('id_user',$id_user)->where('id',$request->id)->first();
+            $gio_hang->delete();
+            return response()->json(['status' => true]);
+        }
+        return response()->json(['status' => false]);
+    }
     /**
      * Show the form for creating a new resource.
      *
